@@ -27,12 +27,16 @@ location.href = "<%=request.getContextPath()%>/view/member/loginForm.jsp"
 String email = request.getParameter("email");
 String tel = request.getParameter("tel");
 String pass = request.getParameter("pass");
+String picture = request.getParameter("picture");
+
 MemberDao md = new MemberDao();
 Member mem = md.selectOne(login);
 
 mem.setEmail(email);
 mem.setTel(tel);
+mem.setPicture(picture);
 
+System.out.println(mem);
 
 
 

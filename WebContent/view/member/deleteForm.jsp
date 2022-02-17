@@ -20,8 +20,9 @@ location.href = "<%=request.getContextPath()%>/view/member/loginForm.jsp"
 <% } else {%>
 <hr>
 	<div class="container">
-		<h2   id="center">회원탈퇴</h2>
-		<form action="<%=request.getContextPath()%>/view/member/deletePro.jsp" method="post">
+		<h2   id="center">회원탈퇴</h2> 
+		<form action="<%=request.getContextPath()%>/view/member/deletePro.jsp" 
+		method="post">
 		<div class="form-group">
 			<label for="usr">ID:</label> 
 			<input type="text" class="form-control" name="id" readonly="readonly" value="<%=login%>"> 

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -89,14 +91,15 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		
 
-		String sql = "update member set tel = ?, email = ? where id = ?";
+		String sql = "update member set tel = ?, email = ?, picture =? where id = ?";
 		
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, mem.getTel());
 			pstmt.setString(2, mem.getEmail());
-			pstmt.setString(3, mem.getId());
+			pstmt.setString(3, mem.getPicture());
+			pstmt.setString(4, mem.getId());
 			
 			return pstmt.executeUpdate(); 
 			
@@ -135,4 +138,69 @@ public class MemberDao {
 		
 		return 0;
 	}
+	
+	public int changePass(String id, String newpass) {
+		Connection con = JdbcConection.getConection();
+		PreparedStatement pstmt = null;
+		
+
+		String sql = "update member set pass = ? where id = ?";
+		
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, newpass);
+			pstmt.setString(2, id);
+	
+			
+			return pstmt.executeUpdate(); 
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JdbcConection.close(con, pstmt, null);
+		}
+		
+		
+		return 0;
+	}
+	
+	
+	public List<Member> memberList() {
+		
+		Connection con = JdbcConection.getConection();
+		PreparedStatement pstmt = null;
+		String sql = "select * from member ";
+		ResultSet rs = null;
+		List<Member> li = new ArrayList<>();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery(); 
+			
+			while(rs.next()) {
+				Member m = new Member(
+						rs.getString("id"),
+						rs.getString("pass"),
+						rs.getString("name"),
+						rs.getString("tel"),
+						rs.getString("email"),
+						rs.getString("picture"),
+						rs.getInt("gender")
+						);
+				li.add(m);
+			}
+			return li;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JdbcConection.close(con, pstmt, rs);
+		}
+		
+		
+		return null;
+	}
+	
 }
