@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 
 public class JdbcConection {
-	public static Connection getConection() {
+	public static Connection getConection() {  //DB 연결
 		//connection : oracle server 연결  sql 전달 객체
 		Connection con = null;
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -16,9 +16,8 @@ public class JdbcConection {
 		String id = "kic";
 		String pw = "1111";
 		try {
-			Class.forName("oracle.jdbc.OracleDriver");
-			 con = DriverManager
-					 .getConnection(url,id,pw);
+			Class.forName("oracle.jdbc.OracleDriver");  //인스턴스생성
+			 con = DriverManager.getConnection(url,id,pw); //인스턴스를 통해 DBMS에 대한 연결 생성
 			
 			 System.out.println("ok db");
 		} catch (Exception e) {
@@ -29,7 +28,7 @@ public class JdbcConection {
 		return con;
 	}
 	
-	public static void close(Connection con, PreparedStatement pstmt, ResultSet rs) {
+	public static void close(Connection con, PreparedStatement pstmt, ResultSet rs) { // DB 연결 해지
 		
 		
 				try {

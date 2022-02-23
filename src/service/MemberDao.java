@@ -18,8 +18,8 @@ public class MemberDao {
 		//DB작업 해야되니까 Connection , PreparedStatement 
 		
 		
-		Connection con = JdbcConection.getConection();
-		PreparedStatement pstmt = null;
+		Connection con = JdbcConection.getConection(); //JdbcConection 클래스에 만들어둔 getConection()메서드를 실행-> DB연결 생성
+		PreparedStatement pstmt = null; //sql실행하기위해 PreparedStatement(사전에 컴파일된 SQL문 실행) 생성
 		
 		//sql만들기  : 7개 member 클래스 변수 갯수 만큼, sql나눠서 작성할때 띄어쓰기 주의
 		String sql = "insert into member "+"values(?,?,?,?,?,?,?)";
@@ -43,7 +43,8 @@ public class MemberDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			JdbcConection.close(con, pstmt, null);
+			JdbcConection.close(con, pstmt, null);  //JdbcConection 클래스에 만들어둔 close()메서드 이용 
+			// ResultSet 사용 안했으니까 rs 자리에 null 입력
 		}
 		
 		
